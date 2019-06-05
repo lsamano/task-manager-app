@@ -5,12 +5,11 @@ GET
   Completed Index
 
 POST
+  Create Task
 
 PATCH
   Complete
+  Edit Task
 
 DELETE
-
-
-Need
-PATCH (Edit)
+  Delete Task

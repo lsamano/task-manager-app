@@ -6,7 +6,7 @@ class NewForm extends React.Component {
     content: ""
   }
 
-  doTheSubmitThing = event => {
+  submitEvent = event => {
     this.setState({ content: "" })
     this.props.postTask(this.state)
   }
@@ -19,7 +19,7 @@ class NewForm extends React.Component {
     return (
       <React.Fragment>
         <Header as="h1">Make a New Task</Header>
-        <Form onSubmit={this.doTheSubmitThing}>
+        <Form onSubmit={this.submitEvent}>
           <Form.Field
           width="twelve"
           control={TextArea}

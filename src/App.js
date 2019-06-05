@@ -3,6 +3,7 @@ import './App.css';
 import { Container, Grid, Header, Menu } from 'semantic-ui-react'
 import TaskContainer from './containers/TaskContainer'
 import NewForm from './components/NewForm'
+import EditForm from './components/EditForm'
 
 class App extends React.Component {
   state = {
@@ -73,6 +74,30 @@ class App extends React.Component {
     })
   }
 
+  patchTask = (taskId, updatedTask) => {
+    fetch(`http://localhost:3000/tasks/${taskId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accepts': 'application/json'
+      },
+      body: JSON.stringify(updatedTask)
+    })
+    .then(res => res.json())
+    .then(newTask => {
+      // const taskToUpdate = this.state.allTasks.find(task => task.id === newTask.id)
+      // taskToUpdate.content = updatedTask.content
+      const updatedTasks = this.state.allTasks.map(task => {
+        if (task.id === newTask.id) {
+          return newTask
+        } else {
+          return task
+        }
+      })
+      this.setTasks(updatedTasks)
+    })
+  }
+
   render() {
     console.log("App", this.state);
     return (
@@ -100,7 +125,8 @@ class App extends React.Component {
               status="active"
               completeTask={this.completeTask}
               deleteTask={this.deleteTask}
-              tasks={this.state.activeTasks}/>
+              tasks={this.state.activeTasks}
+              patchTask={this.patchTask}/>
             </Grid.Column>
 
             <Grid.Column>
@@ -109,7 +135,8 @@ class App extends React.Component {
               status="completed"
               deleteTask={this.deleteTask}
               completeTask={this.completeTask}
-              tasks={this.state.completedTasks}/>
+              tasks={this.state.completedTasks}
+              patchTask={this.patchTask}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>

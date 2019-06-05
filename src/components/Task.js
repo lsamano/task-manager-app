@@ -1,39 +1,33 @@
 import React from 'react'
 import { Card, Button, Icon } from 'semantic-ui-react'
+import TaskDetails from './TaskDetails'
+import EditForm from './EditForm'
 
-const Task = ({task, completeTask, deleteTask}) => {
-  const doneClickEvent = event => completeTask(task)
-  const deleteClickEvent = event => deleteTask(task)
+class Task extends React.Component {
+  state = {
+    editing: false
+  }
 
-  return (
-    <Card>
-      <Card.Content>
+  editClickEvent = event => {
+    return this.setState({editing: !this.state.editing})
+  }
 
-        <Card.Header>
-          Task #{task.id}
-        </Card.Header>
-
-        <Card.Description>
-          {task.content}
-        </Card.Description>
-
-      </Card.Content>
-
-      <Card.Content extra>
-        <Button.Group icon>
-          <Button positive onClick={doneClickEvent}>
-            <Icon name='check' /> Done
-          </Button>
-          <Button color='blue'>
-            <Icon name='edit' /> Edit
-          </Button>
-          <Button negative onClick={deleteClickEvent}>
-            <Icon name='trash' /> Delete
-          </Button>
-        </Button.Group>
-      </Card.Content>
-    </Card>
-  )
+  render() {
+    const {task, completeTask, deleteTask, patchTask} = this.props
+    return (
+      <Card>
+        { this.state.editing
+          ? <EditForm task={task} editClickEvent={this.editClickEvent} patchTask={patchTask}/>
+          : <TaskDetails
+              task={task}
+              editClickEvent={this.editClickEvent}
+              completeTask={completeTask}
+              deleteTask={deleteTask}
+            />
+        }
+      </Card>
+    )
+  }
 }
 
 export default Task;

@@ -1,6 +1,5 @@
 import React from 'react'
 import Task from '../components/Task'
-import CompletedTask from '../components/CompletedTask'
 import Search from '../components/Search'
 import { Card } from 'semantic-ui-react'
 
@@ -16,14 +15,9 @@ class TaskContainer extends React.Component {
   }
 
   formatCards = givenTasks => {
-    const {status, completeTask, deleteTask} = this.props
-    if (status === "active") {
-      return this.props.tasks.filter(task => task.content.includes(this.state.searchTerm))
-      .map( task => <Task completeTask={completeTask} deleteTask={deleteTask} key={task.id} task={ task }/>)
-    } else {
-      return this.props.tasks.filter(task => task.content.includes(this.state.searchTerm))
-      .map( task => <CompletedTask completeTask={completeTask} deleteTask={deleteTask} key={task.id} task={ task }/>)
-    }
+    const {status, completeTask, deleteTask, patchTask} = this.props
+    return this.props.tasks.filter(task => task.content.includes(this.state.searchTerm))
+    .map( task => <Task completeTask={completeTask} deleteTask={deleteTask} patchTask={patchTask} key={task.id} task={ task }/>)
   }
 
   render() {
