@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "content": "Open office hours for students",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "content": "Hold group review session with driver/navigator format",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "content": "Hold review lecture, potentially before code challenge",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "content": "Make React App for testing purposes",
+      "completed": true,
+      "id": 4
+    }
+  ]
+}
