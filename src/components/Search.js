@@ -8,7 +8,9 @@ class Search extends Component {
         <Input fluid
         placeholder='Search...'
         value={this.props.searchTerm}
-        onChange={this.props.changeEvent} />
+        onChange={this.props.changeEvent}
+        icon={{ name: 'search', link: true }}
+         />
       </div>
     );
   }

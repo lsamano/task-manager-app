@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Container, Grid, Header, Menu } from 'semantic-ui-react'
+import { Container, Grid, Header, Menu, Modal, Button, Image } from 'semantic-ui-react'
 import TaskContainer from './containers/TaskContainer'
 import NewForm from './components/NewForm'
 import EditForm from './components/EditForm'
@@ -54,6 +54,7 @@ class App extends React.Component {
     .then(res => res.json())
     .then(data => {
       this.setState({
+        allTasks: [...this.state.allTasks, data],
         activeTasks: [...this.state.activeTasks, data]
       })
     })
@@ -85,14 +86,8 @@ class App extends React.Component {
     })
     .then(res => res.json())
     .then(newTask => {
-      // const taskToUpdate = this.state.allTasks.find(task => task.id === newTask.id)
-      // taskToUpdate.content = updatedTask.content
       const updatedTasks = this.state.allTasks.map(task => {
-        if (task.id === newTask.id) {
-          return newTask
-        } else {
-          return task
-        }
+        return task.id === newTask.id ? newTask : task
       })
       this.setTasks(updatedTasks)
     })
@@ -104,20 +99,16 @@ class App extends React.Component {
       <React.Fragment>
         <Menu>
           <Menu.Item>
-            TaskMaster
+            <Header as="h2">TaskMaster</Header>
           </Menu.Item>
+
+
+        <NewForm postTask={this.postTask}/>
+
+
         </Menu>
         <Container>
         <Grid columns={2} >
-
-          <Grid.Row>
-            <Grid.Column>
-              <Container>
-                <NewForm postTask={this.postTask} />
-              </Container>
-            </Grid.Column>
-          </Grid.Row>
-
           <Grid.Row>
             <Grid.Column>
               <Header as='h1'>Active Tasks</Header>
