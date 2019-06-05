@@ -1,4 +1,4 @@
-# EndeavorNote - Mod 4 (React)
+# Task Manager - Mod 4 (React)
 
 GET
   Index
@@ -14,4 +14,3 @@ DELETE
 
 Need
 PATCH (Edit)
-# task-manager-app
