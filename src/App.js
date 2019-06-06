@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { Container, Grid, Header, Menu } from 'semantic-ui-react'
+import { Grid, Header } from 'semantic-ui-react'
 import TaskContainer from './containers/TaskContainer'
-import NewForm from './components/NewForm'
+import Navbar from './components/Navbar'
 
 const tasksIndexUrl = "http://localhost:3000/tasks"
 
@@ -34,11 +34,17 @@ class App extends React.Component {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
-        'Accepts': 'application/json'
+        'Accept': 'application/json'
       },
       body: JSON.stringify({ completed: !task.completed })
     })
-    .then( _ => this.fetchTasks())
+    .then(res => res.json())
+    .then(newTask => {
+      const updatedTasks = this.state.allTasks.map(task => (
+        task.id === newTask.id ? newTask : task
+      ))
+      this.setTasks(updatedTasks)
+    })
   }
 
   postTask = task => {
@@ -46,7 +52,7 @@ class App extends React.Component {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        'Accepts': 'application/json'
+        'Accept': 'application/json'
       },
       body: JSON.stringify({...task, completed: false})
     })
@@ -64,7 +70,7 @@ class App extends React.Component {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
-        'Accepts': 'application/json'
+        'Accept': 'application/json'
       }
     })
     .then( _ => {
@@ -79,7 +85,7 @@ class App extends React.Component {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
-        'Accepts': 'application/json'
+        'Accept': 'application/json'
       },
       body: JSON.stringify(updatedTask)
     })
@@ -95,39 +101,30 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Menu>
-          <Menu.Item>
-            <Header as="h2">TaskMaster</Header>
-          </Menu.Item>
-
-          <NewForm postTask={this.postTask}/>
-
-        </Menu>
-        <Container>
+        <Navbar postTask={this.postTask}/>
+        <div className="container-padding">
         <Grid columns={2} >
           <Grid.Row>
             <Grid.Column>
               <Header as='h1'>Active Tasks</Header>
               <TaskContainer
-              status="active"
-              completeTask={this.completeTask}
-              deleteTask={this.deleteTask}
-              tasks={this.state.activeTasks}
-              patchTask={this.patchTask}/>
+                completeTask={this.completeTask}
+                deleteTask={this.deleteTask}
+                tasks={this.state.activeTasks}
+                patchTask={this.patchTask}/>
             </Grid.Column>
 
             <Grid.Column>
               <Header as='h1'>Completed Tasks</Header>
               <TaskContainer
-              status="completed"
-              deleteTask={this.deleteTask}
-              completeTask={this.completeTask}
-              tasks={this.state.completedTasks}
-              patchTask={this.patchTask}/>
+                deleteTask={this.deleteTask}
+                completeTask={this.completeTask}
+                tasks={this.state.completedTasks}
+                patchTask={this.patchTask}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        </Container>
+        </div>
       </React.Fragment>
     );
   }

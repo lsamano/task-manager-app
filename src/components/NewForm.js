@@ -1,7 +1,5 @@
 import React from 'react'
 import { Form, TextArea, Button, Modal, Menu } from 'semantic-ui-react'
-// import { Container, Grid, Header, Menu, } from 'semantic-ui-react'
-
 
 class NewForm extends React.Component {
   state = {

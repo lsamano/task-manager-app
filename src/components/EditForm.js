@@ -12,14 +12,9 @@ class EditForm extends Component {
     this.props.patchTask(this.props.task.id, this.state)
   }
 
-  changeEvent = event => {
-    this.setState({content: event.target.value})
-  }
+  changeEvent = event => this.setState({ content: event.target.value })
 
-  handleEditClick = event => {
-    // event.preventDefault()
-    this.props.editClickEvent(this.props.task)
-  }
+  handleEditClick = event => this.props.editClickEvent(this.props.task)
 
   render() {
     const { task } = this.props

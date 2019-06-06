@@ -16,19 +16,30 @@ class TaskContainer extends React.Component {
 
   formatCards = givenTasks => {
     const {completeTask, deleteTask, patchTask} = this.props
-    return this.props.tasks.filter(task => task.content.includes(this.state.searchTerm))
-    .map( task => <Task completeTask={completeTask} deleteTask={deleteTask} patchTask={patchTask} key={task.id} task={ task }/>)
+    return this.filtration(givenTasks)
+    .map( task => <Task
+      completeTask={completeTask}
+      deleteTask={deleteTask}
+      patchTask={patchTask}
+      key={task.id}
+      task={task}/>
+    )
   }
+
+  filtration = givenTasks => (
+    givenTasks.filter(task =>
+      task.content.includes(this.state.searchTerm)
+    )
+  )
 
   render() {
     return (
       <div>
         <Search changeEvent={this.changeEvent} searchTerm={this.state.searchTerm}/>
-        <Card.Group>
         { this.props.tasks.length > 0
-          ? this.formatCards(this.props.tasks)
-          : <p>Loading</p> }
-        </Card.Group>
+          ? <Card.Group>{this.formatCards(this.props.tasks)}</Card.Group>
+          : <p>Empty</p>
+        }
       </div>
     )
   }

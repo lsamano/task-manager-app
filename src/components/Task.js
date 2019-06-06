@@ -8,16 +8,18 @@ class Task extends React.Component {
     editing: false
   }
 
-  editClickEvent = event => {
-    return this.setState({editing: !this.state.editing})
-  }
+  editClickEvent = event => this.setState({ editing: !this.state.editing })
 
   render() {
     const {task, completeTask, deleteTask, patchTask} = this.props
     return (
       <Card>
         { this.state.editing
-          ? <EditForm task={task} editClickEvent={this.editClickEvent} patchTask={patchTask}/>
+          ? <EditForm
+              task={task}
+              editClickEvent={this.editClickEvent}
+              patchTask={patchTask}
+            />
           : <TaskDetails
               task={task}
               editClickEvent={this.editClickEvent}
@@ -26,7 +28,7 @@ class Task extends React.Component {
             />
         }
       </Card>
-    )
+    );
   }
 }
 

@@ -2,7 +2,7 @@
   "tasks": [
     {
       "content": "Open office hours for students",
-      "completed": false,
+      "completed": true,
       "id": 1
     },
     {
@@ -19,11 +19,6 @@
       "content": "Make React App for testing purposes",
       "completed": true,
       "id": 4
-    },
-    {
-      "content": "ddddd",
-      "completed": false,
-      "id": 5
     }
   ]
 }
