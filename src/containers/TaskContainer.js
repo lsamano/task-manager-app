@@ -1,7 +1,7 @@
 import React from 'react'
 import Task from '../components/Task'
 import Search from '../components/Search'
-import { Card } from 'semantic-ui-react'
+import { Card, Form } from 'semantic-ui-react'
 
 class TaskContainer extends React.Component {
   state = {
@@ -17,7 +17,7 @@ class TaskContainer extends React.Component {
   formatCards = givenTasks => {
     const {completeTask, deleteTask, patchTask} = this.props
     return this.filtration(givenTasks)
-    .map( task => <Task
+    .map(task => <Task
       completeTask={completeTask}
       deleteTask={deleteTask}
       patchTask={patchTask}
