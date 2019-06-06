@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Container, Grid, Header, Menu, Modal, Button, Image } from 'semantic-ui-react'
+import { Container, Grid, Header, Menu } from 'semantic-ui-react'
 import TaskContainer from './containers/TaskContainer'
 import NewForm from './components/NewForm'
-import EditForm from './components/EditForm'
+
+const tasksIndexUrl = "http://localhost:3000/tasks"
 
 class App extends React.Component {
   state = {
@@ -15,7 +16,7 @@ class App extends React.Component {
   componentDidMount = () => this.fetchTasks()
 
   fetchTasks = () => {
-    fetch("http://localhost:3000/tasks")
+    fetch(tasksIndexUrl)
     .then(res => res.json())
     .then(tasks => this.setTasks(tasks))
   }
@@ -29,8 +30,7 @@ class App extends React.Component {
   }
 
   completeTask = task => {
-    // run fetch to update
-    fetch(`http://localhost:3000/tasks/${task.id}`, {
+    fetch(`${tasksIndexUrl}/${task.id}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -39,11 +39,10 @@ class App extends React.Component {
       body: JSON.stringify({ completed: !task.completed })
     })
     .then( _ => this.fetchTasks())
-    // update state
   }
 
   postTask = task => {
-    fetch('http://localhost:3000/tasks', {
+    fetch(tasksIndexUrl, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +60,7 @@ class App extends React.Component {
   }
 
   deleteTask = task => {
-    fetch(`http://localhost:3000/tasks/${task.id}`, {
+    fetch(`${tasksIndexUrl}/${task.id}`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
@@ -76,7 +75,7 @@ class App extends React.Component {
   }
 
   patchTask = (taskId, updatedTask) => {
-    fetch(`http://localhost:3000/tasks/${taskId}`, {
+    fetch(`${tasksIndexUrl}/${taskId}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +93,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("App", this.state);
     return (
       <React.Fragment>
         <Menu>
@@ -102,9 +100,7 @@ class App extends React.Component {
             <Header as="h2">TaskMaster</Header>
           </Menu.Item>
 
-
-        <NewForm postTask={this.postTask}/>
-
+          <NewForm postTask={this.postTask}/>
 
         </Menu>
         <Container>

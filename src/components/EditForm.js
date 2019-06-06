@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Card, TextArea, Button, Header } from 'semantic-ui-react'
+import { Form, Card, TextArea, Button } from 'semantic-ui-react'
 
 class EditForm extends Component {
   state = {

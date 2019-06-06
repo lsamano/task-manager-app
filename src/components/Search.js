@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 class Search extends Component {
   render() {

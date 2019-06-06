@@ -15,7 +15,7 @@ class TaskContainer extends React.Component {
   }
 
   formatCards = givenTasks => {
-    const {status, completeTask, deleteTask, patchTask} = this.props
+    const {completeTask, deleteTask, patchTask} = this.props
     return this.props.tasks.filter(task => task.content.includes(this.state.searchTerm))
     .map( task => <Task completeTask={completeTask} deleteTask={deleteTask} patchTask={patchTask} key={task.id} task={ task }/>)
   }
